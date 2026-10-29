@@ -1,0 +1,33 @@
+# Mixed Ethernet / Wi-Fi LAN follow-up
+
+These measurements use a **consumer home LAN**: the Windows desktop is wired through its Ethernet adapter and the Debian laptop is wireless. They are not a benchmark of a fully wired network, RDMA, or a high-speed datacenter fabric. We make no claim that XRAM outperforms established far-memory systems. Both computers' IPv4 routes to one another were on-link on the same private subnet; the intermediate switching and access-point topology was not independently mapped. Traffic was directly between the two hosts over TCP/TLS, with no cloud service used for the tests.
+
+## Observed links and path
+
+On 2026-10-29, Windows selected its Ethernet interface for the Debian endpoint; the adapter reported **1 Gbit/s** link speed. Debian selected its Wi-Fi interface for the Windows endpoint. NetworkManager reported an active 5,300 MHz access point with an advertised maximum bitrate of **540,000 kbit/s**, while the wireless device's current `Bitrate` property reported **2,161,300–2,401,900 kbit/s** in snapshots taken immediately before and after the three batches. These fields do not agree, and no independent radio-rate tool was available to reconcile them. They are driver/NetworkManager-reported link metadata, **not verified end-to-end capacity**. The 1 Gbit/s wired link and the shared wireless medium both constrain the actual path; Wi-Fi contention and rate adaptation can vary. No SSID, BSSID, MAC address, private IP address or credential is included in this report or the raw results.
+
+NetworkManager documents the [wireless device bitrate](https://www.networkmanager.dev/docs/api/1.32.10/gdbus-org.freedesktop.NetworkManager.Device.Wireless.html) as a current bitrate and the [access-point maximum bitrate](https://networkmanager.dev/docs/api/1.30/gdbus-org.freedesktop.NetworkManager.AccessPoint.html) as a maximum. The conflict in these particular observations remains unexplained; we do not infer a precise negotiated Wi-Fi throughput from them. A separate 20-packet ICMP probe observed 20 replies, 0 loss, **45 ms median**, **99 ms p95**, and 1–111 ms range. This is a short snapshot and ICMP is not the same as application latency. [Raw ICMP samples](results/mixed-lan-icmp.json) and [link metadata](results/mixed-lan-metadata.json) are retained without identifiers.
+
+## Repeated application measurements
+
+Three consecutive batches each used the same generated 8 MiB random fixture, ten samples per operation, and a disposable authenticated server. Reads included a new TLS connection and SHA-256 verification; writes include a new TLS connection, 8 MiB upload and a separate delete request. Throughput is 8 MiB divided by the median operation time, not a NIC or raw TCP measurement. The run does not isolate upload from delete overhead. Values vary with network, system load, caches and server state.
+
+| Batch | TLS ping median / p95 | Remote read median / p95 | Read throughput | Write + delete median / p95 | Write + delete throughput |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 23.51 / 40.49 ms | 169.12 / 196.17 ms | 47.30 MiB/s | 393.94 / 436.19 ms | 20.31 MiB/s |
+| 2 | 23.68 / 37.20 ms | 161.63 / 172.25 ms | 49.50 MiB/s | 405.16 / 427.19 ms | 19.75 MiB/s |
+| 3 | 12.29 / 36.60 ms | 173.75 / 212.27 ms | 46.04 MiB/s | 413.57 / 423.67 ms | 19.34 MiB/s |
+
+Across the 30 read operations, latency was 130.13–212.27 ms, corresponding to **37.69–61.47 MiB/s** per-operation logical throughput. Across 30 write-plus-delete operations it was 387.63–436.19 ms, or **18.34–20.64 MiB/s**. These ranges do not represent a bandwidth test with controlled traffic. A previous run in [the original benchmark](README.md) measured 153.88 ms median for write plus delete; the difference is real across those samples, but its cause was not established. Neither the advertised rates nor the observed result justify attributing the difference to a particular radio or device.
+
+Eight concurrent clients each attempted five synthetic vector searches. The three batches completed **20/40**, **15/40**, and **24/40**; the remaining **20**, **25**, and **16** were `search queue full`. The four-client cases completed 20/20 in each batch. These are short closed-loop tests with one server search worker and three queue slots; successful-throughput figures omit rejected work, so completion counts must be read alongside them. [Batch 1](results/mixed-lan-batch-1.json), [batch 2](results/mixed-lan-batch-2.json), and [batch 3](results/mixed-lan-batch-3.json) contain all timings, failures, byte counts and process-memory snapshots. Ten samples per batch and 20 ICMP packets do not provide a reliable long-term tail estimate.
+
+## Scope relative to other research
+
+XRAM here is a Python user-space cache and fixed-function search over authenticated TLS/TCP. It does not implement RDMA, kernel paging, transparent virtual memory, or a multi-node far-memory platform. Established research such as [FaRM](https://www.usenix.org/conference/nsdi14/technical-sessions/dragojevi%C4%87) and [INFINISWAP](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-gu.pdf) uses different architectures and RDMA-oriented environments. Our home-LAN numbers are **not comparable benchmarks of those systems**, and no claim of superiority is made. A fair comparison would require the same workloads, machines, interconnect, semantics and measurement method.
+
+## Reproduce safely
+
+Follow the existing [benchmark instructions](README.md) and use fresh credentials and an isolated test server. Run the same `benchmarks/local_lan.py` command three times, retaining each JSON output separately. On the Windows client, `python benchmarks/network_probe.py --host SERVER_PRIVATE_IP --count 20` emits per-packet ICMP timings without recording the target address. For the Windows route and link, inspect `Find-NetRoute -RemoteIPAddress SERVER_PRIVATE_IP` and `Get-NetAdapter` locally. On the Debian Wi-Fi host, inspect the route using `ip route get CLIENT_PRIVATE_IP`; NetworkManager's active-device and active-access-point properties can be inspected locally with `nmcli` and `busctl`. Verify the selected device's D-Bus path before querying `org.freedesktop.NetworkManager.Device.Wireless` `Bitrate` and its active access point's `MaxBitrate` and `Frequency`. Do not publish private IPs, hardware addresses, access-point identifiers, credentials or environment-specific paths from diagnostic output.
+
+All measurements used an isolated server with the same 48 MiB payload cap and other bounds as the original benchmark. The test server was stopped after collection. Raw application timings come from synthetic data; no private documents or derived internal datasets were used.

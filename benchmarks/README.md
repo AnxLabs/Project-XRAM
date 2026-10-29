@@ -1,5 +1,7 @@
 # Local LAN benchmark: 2026-10-29
 
+**Topology:** the Windows desktop was wired over Ethernet and the Debian laptop was on Wi-Fi. See the [mixed-LAN follow-up](NETWORK-STUDY.md) for link reports, variability, failures and the distinction from wired/RDMA research.
+
 These are fresh measurements on a disposable two-machine LAN setup, using only generated fixtures. They are not results from private documents or an application workload. The sample sizes are small, p95 is an observed sample percentile rather than a reliable tail estimate, and one run cannot establish general performance.
 
 ## Test setup

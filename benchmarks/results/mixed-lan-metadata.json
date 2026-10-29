@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-29",
+  "topology": "Windows desktop Ethernet to Debian laptop Wi-Fi on a directly routed private subnet; physical bridge devices were not enumerated",
+  "windows_ethernet_reported_link_mbps": 1000,
+  "debian_active_wifi_frequency_mhz": 5300,
+  "debian_active_access_point_reported_max_kbps": 540000,
+  "debian_wifi_device_reported_bitrate_kbps_before_after": [[2401900,2401900],[2401900,2161300],[2161300,2401900]],
+  "wifi_rate_note": "NetworkManager device-current and access-point maximum properties differ and were not independently reconciled; neither is end-to-end measured throughput.",
+  "network_type": "consumer mixed wired/wireless home LAN; TCP with TLS, no RDMA tested"
+}

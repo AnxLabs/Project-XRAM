@@ -1,0 +1,672 @@
+{
+  "fixture": "Python PRNG seed 728; synthetic uniform bytes; vectors seed 91; no source documents",
+  "payload_bytes": 8388608,
+  "payload_sha256": "e489a0e86045854e91018ce192f1f0e09c0862292bbf9e63bd6b27960e6db3d0",
+  "vector_bytes": 1048576,
+  "vector_sha256": "786ea56bb1fb18215ed1b0976a8ec0b16805dc64efdff0d9bd12d8001f8f673b",
+  "samples": 10,
+  "scenarios": {
+    "tls_ping": {
+      "n": 10,
+      "median_ms": 23.675849999999997,
+      "p95_ms": 37.2021,
+      "samples_ms": [
+        20.4585,
+        37.2021,
+        10.8469,
+        11.2146,
+        21.5174,
+        29.0059,
+        25.8343,
+        12.0025,
+        28.3806,
+        26.6624
+      ]
+    },
+    "remote_read": {
+      "n": 10,
+      "median_ms": 161.63015000000001,
+      "p95_ms": 172.2532,
+      "samples_ms": [
+        147.2562,
+        163.8311,
+        170.482,
+        160.0737,
+        172.2532,
+        162.1169,
+        150.5542,
+        159.5006,
+        171.2164,
+        161.1434
+      ]
+    },
+    "remote_write_including_delete": {
+      "n": 10,
+      "median_ms": 405.15515,
+      "p95_ms": 427.1942,
+      "samples_ms": [
+        417.1093,
+        418.5368,
+        403.7172,
+        406.5931,
+        427.1942,
+        412.5656,
+        401.7665,
+        401.1806,
+        393.9562,
+        387.9468
+      ]
+    },
+    "local_ram_copy_hash": {
+      "n": 10,
+      "median_ms": 6.23005,
+      "p95_ms": 6.9676,
+      "samples_ms": [
+        6.9676,
+        6.9355,
+        6.6959,
+        6.7536,
+        6.259,
+        5.8173,
+        5.7341,
+        6.2011,
+        5.7494,
+        5.7421
+      ]
+    },
+    "warm_ssd_read_hash": {
+      "n": 10,
+      "median_ms": 6.9841,
+      "p95_ms": 16.6838,
+      "samples_ms": [
+        16.6838,
+        6.8852,
+        6.2649,
+        6.1977,
+        6.5257,
+        8.4582,
+        6.9272,
+        7.6293,
+        7.041,
+        9.0172
+      ]
+    },
+    "compression_random": {
+      "compressed_bytes": 8391169,
+      "ratio": 1.0003052949905396
+    },
+    "compress_random": {
+      "n": 10,
+      "median_ms": 159.0537,
+      "p95_ms": 200.6078,
+      "samples_ms": [
+        164.7687,
+        156.9503,
+        157.7498,
+        200.6078,
+        156.9143,
+        154.9548,
+        159.6193,
+        180.7805,
+        158.4881,
+        162.3489
+      ]
+    },
+    "decompress_random": {
+      "n": 10,
+      "median_ms": 7.46535,
+      "p95_ms": 8.371,
+      "samples_ms": [
+        7.6711,
+        6.6776,
+        6.4283,
+        6.762,
+        7.8194,
+        7.2596,
+        6.386,
+        8.371,
+        8.1401,
+        8.3221
+      ]
+    },
+    "compression_repetitive": {
+      "compressed_bytes": 52921,
+      "ratio": 0.0063086748123168945
+    },
+    "compress_repetitive": {
+      "n": 10,
+      "median_ms": 16.3766,
+      "p95_ms": 19.381,
+      "samples_ms": [
+        13.6988,
+        15.7684,
+        18.8104,
+        16.38,
+        14.6499,
+        19.2028,
+        18.1279,
+        16.3732,
+        14.7344,
+        19.381
+      ]
+    },
+    "decompress_repetitive": {
+      "n": 10,
+      "median_ms": 12.200099999999999,
+      "p95_ms": 18.797,
+      "samples_ms": [
+        16.539,
+        18.797,
+        12.5951,
+        11.8051,
+        12.8852,
+        12.7694,
+        10.5152,
+        8.7301,
+        8.5771,
+        9.5097
+      ]
+    },
+    "local_vector_score": {
+      "n": 10,
+      "median_ms": 18.12265,
+      "p95_ms": 28.1578,
+      "samples_ms": [
+        13.4653,
+        23.057,
+        24.9026,
+        25.7677,
+        28.1578,
+        20.3112,
+        13.5491,
+        14.7985,
+        15.9341,
+        13.3357
+      ]
+    },
+    "remote_vector_search": {
+      "n": 10,
+      "median_ms": 19.573,
+      "p95_ms": 49.7152,
+      "samples_ms": [
+        49.7152,
+        19.3921,
+        19.3365,
+        19.279,
+        19.5103,
+        20.4746,
+        20.0101,
+        19.6357,
+        19.4218,
+        20.6339
+      ]
+    }
+  },
+  "server_before": {
+    "ok": true,
+    "hits": 10,
+    "misses": 0,
+    "puts": 12,
+    "deletes": 12,
+    "evictions": 0,
+    "expirations": 0,
+    "rejected": 0,
+    "uploaded_bytes": 93323264,
+    "downloaded_bytes": 83886080,
+    "used": 0,
+    "reserved": 0,
+    "limit": 50331648,
+    "objects": 0,
+    "pending": 0,
+    "uptime_seconds": 27.61,
+    "search_waiting": 0,
+    "search_active": 0,
+    "VmRSS_bytes": 32391168,
+    "VmSwap_bytes": 0
+  },
+  "server_seeded": {
+    "ok": true,
+    "hits": 10,
+    "misses": 0,
+    "puts": 14,
+    "deletes": 12,
+    "evictions": 0,
+    "expirations": 0,
+    "rejected": 0,
+    "uploaded_bytes": 102760448,
+    "downloaded_bytes": 83886080,
+    "used": 9437184,
+    "reserved": 0,
+    "limit": 50331648,
+    "objects": 2,
+    "pending": 0,
+    "uptime_seconds": 28.071,
+    "search_waiting": 0,
+    "search_active": 0,
+    "VmRSS_bytes": 41828352,
+    "VmSwap_bytes": 0
+  },
+  "remote_search_application_bytes": {
+    "sent": 1920,
+    "received": 2420
+  },
+  "concurrency": {
+    "1": {
+      "attempted": 5,
+      "counts": {
+        "ok": 5
+      },
+      "wall_seconds": 0.13217009999789298,
+      "completed_per_second": 37.830038715864696,
+      "all_response_latency": {
+        "n": 5,
+        "median_ms": 19.9787,
+        "p95_ms": 46.0853,
+        "samples_ms": [
+          46.0853,
+          20.5551,
+          19.9787,
+          19.7056,
+          19.7768
+        ]
+      },
+      "outcomes": [
+        {
+          "status": "ok",
+          "ms": 46.0853
+        },
+        {
+          "status": "ok",
+          "ms": 20.5551
+        },
+        {
+          "status": "ok",
+          "ms": 19.9787
+        },
+        {
+          "status": "ok",
+          "ms": 19.7056
+        },
+        {
+          "status": "ok",
+          "ms": 19.7768
+        }
+      ],
+      "application_bytes_sent": 960,
+      "application_bytes_received": 1210
+    },
+    "4": {
+      "attempted": 20,
+      "counts": {
+        "ok": 20
+      },
+      "wall_seconds": 0.3718236999993678,
+      "completed_per_second": 53.788932765808106,
+      "all_response_latency": {
+        "n": 20,
+        "median_ms": 69.26035,
+        "p95_ms": 75.6498,
+        "samples_ms": [
+          118.3975,
+          69.0883,
+          71.5756,
+          72.0847,
+          38.7759,
+          66.1793,
+          69.3221,
+          69.269,
+          72.1657,
+          75.6498,
+          30.7135,
+          53.141,
+          69.2517,
+          68.9633,
+          72.5922,
+          49.0833,
+          51.8222,
+          69.1978,
+          70.9598,
+          71.995
+        ]
+      },
+      "outcomes": [
+        {
+          "status": "ok",
+          "ms": 118.3975
+        },
+        {
+          "status": "ok",
+          "ms": 69.0883
+        },
+        {
+          "status": "ok",
+          "ms": 71.5756
+        },
+        {
+          "status": "ok",
+          "ms": 72.0847
+        },
+        {
+          "status": "ok",
+          "ms": 38.7759
+        },
+        {
+          "status": "ok",
+          "ms": 66.1793
+        },
+        {
+          "status": "ok",
+          "ms": 69.3221
+        },
+        {
+          "status": "ok",
+          "ms": 69.269
+        },
+        {
+          "status": "ok",
+          "ms": 72.1657
+        },
+        {
+          "status": "ok",
+          "ms": 75.6498
+        },
+        {
+          "status": "ok",
+          "ms": 30.7135
+        },
+        {
+          "status": "ok",
+          "ms": 53.141
+        },
+        {
+          "status": "ok",
+          "ms": 69.2517
+        },
+        {
+          "status": "ok",
+          "ms": 68.9633
+        },
+        {
+          "status": "ok",
+          "ms": 72.5922
+        },
+        {
+          "status": "ok",
+          "ms": 49.0833
+        },
+        {
+          "status": "ok",
+          "ms": 51.8222
+        },
+        {
+          "status": "ok",
+          "ms": 69.1978
+        },
+        {
+          "status": "ok",
+          "ms": 70.9598
+        },
+        {
+          "status": "ok",
+          "ms": 71.995
+        }
+      ],
+      "application_bytes_sent": 3840,
+      "application_bytes_received": 4854
+    },
+    "8": {
+      "attempted": 40,
+      "counts": {
+        "ok": 15,
+        "search queue full": 25
+      },
+      "wall_seconds": 0.2753422999958275,
+      "completed_per_second": 54.47764473612412,
+      "all_response_latency": {
+        "n": 40,
+        "median_ms": 18.003999999999998,
+        "p95_ms": 82.6764,
+        "samples_ms": [
+          31.7313,
+          16.388,
+          69.562,
+          69.8756,
+          68.779,
+          48.1814,
+          16.6895,
+          87.3907,
+          18.1353,
+          68.7142,
+          46.6362,
+          18.2872,
+          10.7727,
+          7.1113,
+          17.3666,
+          64.9758,
+          70.3077,
+          16.9567,
+          69.8952,
+          51.1902,
+          100.0941,
+          17.7907,
+          10.1302,
+          7.3955,
+          69.3373,
+          64.7125,
+          17.8727,
+          10.6124,
+          17.342,
+          7.0689,
+          82.6764,
+          5.149,
+          5.1817,
+          6.9468,
+          10.6309,
+          46.6336,
+          17.1098,
+          17.1865,
+          12.2918,
+          77.0577
+        ]
+      },
+      "outcomes": [
+        {
+          "status": "ok",
+          "ms": 31.7313
+        },
+        {
+          "status": "search queue full",
+          "ms": 16.388
+        },
+        {
+          "status": "ok",
+          "ms": 69.562
+        },
+        {
+          "status": "ok",
+          "ms": 69.8756
+        },
+        {
+          "status": "ok",
+          "ms": 68.779
+        },
+        {
+          "status": "ok",
+          "ms": 48.1814
+        },
+        {
+          "status": "search queue full",
+          "ms": 16.6895
+        },
+        {
+          "status": "ok",
+          "ms": 87.3907
+        },
+        {
+          "status": "search queue full",
+          "ms": 18.1353
+        },
+        {
+          "status": "ok",
+          "ms": 68.7142
+        },
+        {
+          "status": "search queue full",
+          "ms": 46.6362
+        },
+        {
+          "status": "search queue full",
+          "ms": 18.2872
+        },
+        {
+          "status": "search queue full",
+          "ms": 10.7727
+        },
+        {
+          "status": "search queue full",
+          "ms": 7.1113
+        },
+        {
+          "status": "search queue full",
+          "ms": 17.3666
+        },
+        {
+          "status": "ok",
+          "ms": 64.9758
+        },
+        {
+          "status": "ok",
+          "ms": 70.3077
+        },
+        {
+          "status": "search queue full",
+          "ms": 16.9567
+        },
+        {
+          "status": "ok",
+          "ms": 69.8952
+        },
+        {
+          "status": "ok",
+          "ms": 51.1902
+        },
+        {
+          "status": "ok",
+          "ms": 100.0941
+        },
+        {
+          "status": "search queue full",
+          "ms": 17.7907
+        },
+        {
+          "status": "search queue full",
+          "ms": 10.1302
+        },
+        {
+          "status": "search queue full",
+          "ms": 7.3955
+        },
+        {
+          "status": "ok",
+          "ms": 69.3373
+        },
+        {
+          "status": "search queue full",
+          "ms": 64.7125
+        },
+        {
+          "status": "search queue full",
+          "ms": 17.8727
+        },
+        {
+          "status": "search queue full",
+          "ms": 10.6124
+        },
+        {
+          "status": "search queue full",
+          "ms": 17.342
+        },
+        {
+          "status": "search queue full",
+          "ms": 7.0689
+        },
+        {
+          "status": "ok",
+          "ms": 82.6764
+        },
+        {
+          "status": "search queue full",
+          "ms": 5.149
+        },
+        {
+          "status": "search queue full",
+          "ms": 5.1817
+        },
+        {
+          "status": "search queue full",
+          "ms": 6.9468
+        },
+        {
+          "status": "search queue full",
+          "ms": 10.6309
+        },
+        {
+          "status": "search queue full",
+          "ms": 46.6336
+        },
+        {
+          "status": "search queue full",
+          "ms": 17.1098
+        },
+        {
+          "status": "search queue full",
+          "ms": 17.1865
+        },
+        {
+          "status": "search queue full",
+          "ms": 12.2918
+        },
+        {
+          "status": "ok",
+          "ms": 77.0577
+        }
+      ],
+      "application_bytes_sent": 7680,
+      "application_bytes_received": 4740
+    }
+  },
+  "server_after": {
+    "ok": true,
+    "hits": 20,
+    "misses": 0,
+    "puts": 24,
+    "deletes": 22,
+    "evictions": 0,
+    "expirations": 0,
+    "rejected": 0,
+    "uploaded_bytes": 186646528,
+    "downloaded_bytes": 167772160,
+    "used": 9437184,
+    "reserved": 0,
+    "limit": 50331648,
+    "objects": 2,
+    "pending": 0,
+    "uptime_seconds": 37.556,
+    "search_waiting": 0,
+    "search_active": 0,
+    "VmRSS_bytes": 50221056,
+    "VmSwap_bytes": 0
+  },
+  "windows_before": {
+    "working_set": 22798336,
+    "peak_working_set": 22798336,
+    "private_bytes": 14098432,
+    "page_faults": 5698
+  },
+  "windows_after": {
+    "working_set": 44564480,
+    "peak_working_set": 68927488,
+    "private_bytes": 33226752,
+    "page_faults": 208261
+  }
+}

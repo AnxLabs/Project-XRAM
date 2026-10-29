@@ -1,0 +1,33 @@
+{
+  "sent": 20,
+  "received": 20,
+  "loss_count": 0,
+  "bounded_less_than_readings": 0,
+  "median_ms": 45.0,
+  "p95_ms": 99.0,
+  "min_ms": 1.0,
+  "max_ms": 111.0,
+  "samples_ms": [
+    2.0,
+    25.0,
+    55.0,
+    72.0,
+    89.0,
+    111.0,
+    25.0,
+    45.0,
+    63.0,
+    81.0,
+    99.0,
+    1.0,
+    2.0,
+    45.0,
+    2.0,
+    43.0,
+    76.0,
+    91.0,
+    10.0,
+    19.0
+  ],
+  "note": "A less-than reading is represented by its displayed upper bound; platform/localization-dependent ping parsing."
+}
