@@ -5,7 +5,23 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import xram, compute_near_memory as near
 
 def process_memory():
-    if os.name!='nt': return {'note':'Windows process memory unavailable on this platform'}
+    if os.name!='nt':
+        if sys.platform.startswith('linux'):
+            try:
+                values={}
+                for line in Path('/proc/self/status').read_text(encoding='ascii').splitlines():
+                    key, sep, value=line.partition(':')
+                    if sep and key in ('VmRSS','VmHWM','VmSwap'):
+                        parts=value.split()
+                        if len(parts)==2 and parts[1]=='kB': values[key]=int(parts[0])*1024
+                if 'VmRSS' in values:
+                    result={'working_set':values['VmRSS']}
+                    if 'VmHWM' in values: result['peak_working_set']=values['VmHWM']
+                    if 'VmSwap' in values: result['swap_bytes']=values['VmSwap']
+                    return result
+            except (OSError, ValueError):
+                pass
+        return {'note':'Client process memory measurements unavailable on this platform'}
     import ctypes
     from ctypes import wintypes
     class Counters(ctypes.Structure):
@@ -24,7 +40,7 @@ def vector_score(data,index=0):
     return sorted(((sum(a*b for a,b in zip(row,query)),i) for i,row in enumerate(struct.iter_unpack('<256f',data))),reverse=True)[:5]
 
 def run(a,token):
-    windows_before=process_memory()
+    client_before=process_memory()
     r=random.Random(728); payload=r.randbytes(a.mib*1048576); digest=hashlib.sha256(payload).hexdigest()
     vgen=random.Random(91);vectors=b''.join(struct.pack('<256f',*(vgen.random() for _ in range(256))) for _ in range(1024));vhash=hashlib.sha256(vectors).hexdigest();reference=vector_score(vectors)
     compressible=(b'XRAM benchmark fixture 0123456789\n'*((len(payload)//33)+1))[:len(payload)]
@@ -92,7 +108,10 @@ def run(a,token):
             for o in out:counts[o['status']]=counts.get(o['status'],0)+1
             return {'attempted':len(out),'counts':counts,'wall_seconds':wall,'completed_per_second':counts.get('ok',0)/wall,'all_response_latency':summary([o['ms'] for o in out]),'outcomes':out,'application_bytes_sent':sum(x['sent'] for x in work),'application_bytes_received':sum(x['received'] for x in work)}
         results['concurrency']={str(count):concurrency(count) for count in (1,4,8)}
-        results['server_after']=client.stats();results['windows_before']=windows_before;results['windows_after']=process_memory()
+        results['server_after']=client.stats();client_after=process_memory()
+        results['client_memory_before']=client_before;results['client_memory_after']=client_after
+        if os.name=='nt':
+            results['windows_before']=client_before;results['windows_after']=client_after
         return results
     finally:
         for name in inserted:

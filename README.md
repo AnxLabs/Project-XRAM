@@ -1,12 +1,12 @@
 # Project XRAM by AnxLabs
 
-XRAM is an **experimental remote-memory cache and fixed-function compute prototype** for trusted local networks. It stores bounded, temporary byte objects in another computer's process memory and can optionally rank vectors where they are stored. It is **not transparent physical RAM expansion**, operating-system swap, shared virtual memory, durable storage, or a production service.
+XRAM is an **open-source research project for general-purpose distributed memory**, built for contributors and machines beyond the original benchmark setup. The long-term goal is to explore expanding usable application memory across computers. The current implementation is an **experimental remote-memory cache and fixed-function compute prototype** for trusted local networks. It stores bounded, temporary byte objects in another computer's process memory and can optionally rank vectors where they are stored. It is **not transparent physical RAM expansion**, operating-system swap, shared virtual memory, durable storage, or a production service.
 
 ## Current status
 
 Research is paused, not abandoned. The prototype demonstrates authenticated, encrypted transfers, content verification, bounded storage, expiry, a limited vector search, and an optional bounded search queue. Our measurements show that local RAM and a warm local SSD can be much faster than remote access. A queue can improve burst completion without increasing search throughput. See [benchmark results](benchmarks/README.md) for successful and unsuccessful cases and their limitations.
 
-The public repository contains the reusable XRAM core and synthetic benchmarks. The original AnxLabs research history, internal application integrations, private source documents and derived datasets are not distributed here.
+The first Windows and Debian systems are benchmark machines, not product dependencies. The reusable core and synthetic fixtures are open to contributors; no AnxLabs service, private source document, or derived internal dataset is required.
 
 ## Get started
 
@@ -16,7 +16,7 @@ Python 3.10+ is required; the runtime and automated tests use the Python standar
 python -m unittest -v
 ```
 
-See [architecture](docs/ARCHITECTURE.md), [benchmark methodology](benchmarks/README.md), [security policy](SECURITY.md), and [contributing](CONTRIBUTING.md). Apache License 2.0 applies; see [LICENSE](LICENSE).
+See [architecture](docs/ARCHITECTURE.md), [verified and planned compatibility](docs/COMPATIBILITY.md), [benchmark methodology](benchmarks/README.md), [security policy](SECURITY.md), and [contributing](CONTRIBUTING.md). Apache License 2.0 applies; see [LICENSE](LICENSE).
 
 ## Boundaries
 
